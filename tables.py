@@ -10,9 +10,13 @@ def render_table_editor(
     editable_columns=None
 ):
     # Load data
-    df = pd.read_csv(file_path, parse_dates=date_columns) if date_columns else pd.read_csv(file_path)
+    df = pd.read_csv(file_path)
 
-   
+    # Explicitly parse date columns
+    if date_columns:
+        for col in date_columns:
+            if col in df.columns:
+                df[col] = pd.to_datetime(df[col], dayfirst=True, errors="coerce")
 
     # Add filter
     filtered_df = dataframe_explorer(df, case=False)
@@ -25,7 +29,7 @@ def render_table_editor(
     if st.button(f"➕ Add Empty Row ({key_prefix})"):
         empty_row = {col: "" for col in df.columns}
         for col in date_columns or []:
-            empty_row[col] = pd.to_datetime("01-01-25")
+            empty_row[col] = pd.to_datetime("01-01-2025", dayfirst=True)
         st.session_state[f"{key_prefix}_added_rows"] = pd.concat(
             [st.session_state[f"{key_prefix}_added_rows"], pd.DataFrame([empty_row])],
             ignore_index=True
@@ -33,15 +37,15 @@ def render_table_editor(
         st.rerun()
 
     # Combine for display
-        # Combine for display
-    display_df = pd.concat([filtered_df, st.session_state[f"{key_prefix}_added_rows"]], ignore_index=True)
+    display_df = pd.concat(
+        [filtered_df, st.session_state[f"{key_prefix}_added_rows"]],
+        ignore_index=True
+    )
 
+    # Convert date columns for display
     for col in date_columns or []:
-     if col in display_df.columns:
-        display_df[col] = pd.to_datetime(display_df[col], errors="coerce").dt.strftime('%d-%m-%Y')
-
-
- 
+        if col in display_df.columns:
+            display_df[col] = pd.to_datetime(display_df[col], errors="coerce").dt.strftime("%d/%m/%Y")
 
     edited_df = st.data_editor(
         display_df,
@@ -57,7 +61,12 @@ def render_table_editor(
         elif edited_df[id_column].astype(str).duplicated().any():
             st.error(f"❌ Duplicate {id_column}s found.")
         else:
-            old_df = pd.read_csv(file_path, parse_dates=date_columns) if date_columns else pd.read_csv(file_path)
+            old_df = pd.read_csv(file_path)
+            if date_columns:
+                for col in date_columns:
+                    if col in old_df.columns:
+                        old_df[col] = pd.to_datetime(old_df[col], format="%d %m %Y", errors="coerce")
+
             updated_ids = edited_df[id_column].astype(str).tolist()
             old_df = old_df[~old_df[id_column].astype(str).isin(updated_ids)]
             full_df = pd.concat([old_df, edited_df], ignore_index=True)
@@ -68,11 +77,15 @@ def render_table_editor(
 
     # Delete
     to_delete = st.text_input(f"Enter {id_column} to delete ({key_prefix})")
-    if st.button(f"🗑️ Delete {key_prefix}"):
+    if st.button(f"🗑️ Delete {key_prefix}") and to_delete:
         df = df[df[id_column].astype(str) != str(to_delete)]
         df.to_csv(file_path, index=False)
         st.success(f"✅ {id_column} {to_delete} deleted.")
         st.rerun()
+
+           
+    
+
 
 
 
