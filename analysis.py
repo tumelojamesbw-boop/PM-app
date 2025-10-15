@@ -8,7 +8,7 @@ from visuals.gantt_chart import show_gantt_chart
 
 
 def HomePage():
-    st.markdown("## 📊 Project Tracking Dashboard", unsafe_allow_html=True, divider="rainbow" )
+    st.header("📊 Project Tracking Dashboard", divider="rainbow")
     st.markdown("---")  # separator
     st.markdown(
         "<h3 style='background: inherit; padding:10px; border-radius:8px; text-align:center;'> Centralized Services</h3>", 
@@ -116,6 +116,7 @@ def HomePage():
 
 
    
+
 
 
 
