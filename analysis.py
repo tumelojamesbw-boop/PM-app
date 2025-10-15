@@ -74,7 +74,7 @@ def HomePage():
     merged_df.drop_duplicates(inplace=True)
     after = len(merged_df)
 
-    st.caption(f"Data cleaned: {before - after} duplicate rows removed.")
+   
 
     # Render visuals
     show_summary_cards(merged_df)
@@ -109,6 +109,7 @@ def HomePage():
 
 
    
+
 
 
 
