@@ -4,7 +4,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from data import load_and_merge_data  
 
-
 def get_dynamic_color(value):
     """Return color intensity based on completion %."""
     if value < 30:
@@ -15,8 +14,6 @@ def get_dynamic_color(value):
         return "#A3E676"  # yellow-green
     else:
         return '#27AE60'  # dark green
-
-
 
 def make_donut(value, label, color=None, suffix="%"):
     """Creates a donut chart KPI with centered value and label."""
@@ -65,7 +62,6 @@ def make_donut(value, label, color=None, suffix="%"):
     )
     st.plotly_chart(fig, use_container_width=False)
 
-
 # --- Main Page ---
 def ProPage():
     st.title("🏗️ Projects")
@@ -84,15 +80,12 @@ def ProPage():
     if filtered_df.empty:
         st.warning("No data available for the selected project.")
         return
-
- 
+        
     total_tasks = len(filtered_df)
     completed = (filtered_df['Status'].str.lower() == 'completed').sum()
     completion_rate = round((completed / total_tasks) * 100, 1) if total_tasks else 0
     delay_rate = round(filtered_df['Delay_Days'].mean(), 1) if 'Delay_Days' in filtered_df else 0
-
     
-  
     col1, col2 = st.columns(2)
 
     with col1:
@@ -101,15 +94,13 @@ def ProPage():
         delay_score = min((delay_rate / 10) * 100, 100)
         make_donut(delay_score, f"Avg Delay ({delay_rate} Days)", color="red", suffix="")
 
-   -
     st.markdown("---")
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("📋 Total Tasks", total_tasks)
     col2.metric("✅ Completed", completed)
     col3.metric("🚧 In Progress", (filtered_df['Status'].str.lower() == 'in progress').sum())
     col4.metric("🗓️ Planned", (filtered_df['Status'].str.lower() == 'planned').sum())
-
-    
+ 
     st.markdown("---")
     col1, col2 = st.columns(2)
 
