@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-from data import load_and_merge_data  # adjust to your actual import path
+from data import load_and_merge_data  
 
-# --- Dynamic Color Function for Completion Rate ---
+
 def get_dynamic_color(value):
     """Return color intensity based on completion %."""
     if value < 30:
@@ -17,7 +17,7 @@ def get_dynamic_color(value):
         return '#27AE60'  # dark green
 
 
-# --- Donut Chart Function ---
+
 def make_donut(value, label, color=None, suffix="%"):
     """Creates a donut chart KPI with centered value and label."""
     if label.lower().startswith("completion"):
@@ -68,7 +68,7 @@ def make_donut(value, label, color=None, suffix="%"):
 
 # --- Main Page ---
 def ProPage():
-    st.title("🏗️ Project Overview Dashboard")
+    st.title("🏗️ Projects")
     df = load_and_merge_data()
 
     # --- Clean Dates ---
@@ -85,13 +85,13 @@ def ProPage():
         st.warning("No data available for the selected project.")
         return
 
-    # --- KPI Calculations ---
+ 
     total_tasks = len(filtered_df)
     completed = (filtered_df['Status'].str.lower() == 'completed').sum()
     completion_rate = round((completed / total_tasks) * 100, 1) if total_tasks else 0
     delay_rate = round(filtered_df['Delay_Days'].mean(), 1) if 'Delay_Days' in filtered_df else 0
 
-    # --- Donut KPI Row ---
+    
   
     col1, col2 = st.columns(2)
 
@@ -101,7 +101,7 @@ def ProPage():
         delay_score = min((delay_rate / 10) * 100, 100)
         make_donut(delay_score, f"Avg Delay ({delay_rate} Days)", color="red", suffix="")
 
-    # --- KPI Summary ---
+   -
     st.markdown("---")
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("📋 Total Tasks", total_tasks)
@@ -109,7 +109,7 @@ def ProPage():
     col3.metric("🚧 In Progress", (filtered_df['Status'].str.lower() == 'in progress').sum())
     col4.metric("🗓️ Planned", (filtered_df['Status'].str.lower() == 'planned').sum())
 
-    # --- Insights ---
+    
     st.markdown("---")
     col1, col2 = st.columns(2)
 
@@ -173,5 +173,6 @@ def ProPage():
     fig4.update_yaxes(autorange="reversed")
     fig4.update_layout(template="plotly_white", height=700, margin=dict(l=100, r=30, t=50, b=50))
     st.plotly_chart(fig4, use_container_width=True)
+
 
 
