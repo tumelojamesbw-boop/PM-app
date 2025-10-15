@@ -11,9 +11,10 @@ def HomePage():
     st.markdown("## 📊 Project Tracking Dashboard", unsafe_allow_html=True)
     st.markdown("---")  # separator
     st.markdown(
-        "<h3>📊 Centralized Services</h3>", 
+        "<h3 style='background: Red; padding:10px; border-radius:8px; text-align:center;'> Centralized Services</h3>", 
         unsafe_allow_html=True
     )
+    
     
 
     # Load merged dataset
@@ -115,6 +116,7 @@ def HomePage():
 
 
    
+
 
 
 
