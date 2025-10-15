@@ -9,6 +9,7 @@ from visuals.gantt_chart import show_gantt_chart
 
 def HomePage():
     st.header("📊 Project Tracking Dashboard", divider="rainbow")
+    st.h3("📊 Centralized Services", divider="rainbow")
 
     # Load merged dataset
     merged_df = load_and_merge_data()
@@ -109,6 +110,7 @@ def HomePage():
 
 
    
+
 
 
 
