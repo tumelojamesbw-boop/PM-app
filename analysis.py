@@ -14,7 +14,7 @@ def HomePage():
 
     merged_df = load_and_merge_data()
 
-   last_update = pd.to_datetime(merged_df['Last_Updated'].max()
+   last_update = pd.to_datetime(merged_df['Last_Updated'].max())
    st.caption(f"Last Updated: {last_update.strftime('%d %B %Y')}")
     
 
@@ -97,4 +97,5 @@ def HomePage():
 
 
    
+
 
