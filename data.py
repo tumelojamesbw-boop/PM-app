@@ -1,3 +1,5 @@
+import pandas as pd
+
 def load_and_merge_data():
     # Load datasets
     projects_df = pd.read_csv("projects.csv", parse_dates=["Start_Date", "End_Date"])
@@ -25,3 +27,4 @@ def load_and_merge_data():
     merged = merged.merge(costs_df, on="Task_ID", how="left", suffixes=('', '_Cost'))
 
     return merged
+
