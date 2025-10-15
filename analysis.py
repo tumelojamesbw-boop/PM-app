@@ -10,7 +10,7 @@ from visuals.gantt_chart import show_gantt_chart
 def HomePage():
     st.header("📊 Project Tracking Dashboard", divider="rainbow")
     st.markdown(
-        "<h3 style='background: inherit; color: #4B0082; padding:10px; border-radius:8px; text-align:center; font-family: 'Comic Sans MS', cursive, sans-serif;'> Centralized Services</h3>", 
+        "<h3 style='background: inherit; color: #FF6F61; padding:10px; border-radius:8px; text-align:center; font-family: 'Comic Sans MS', cursive, sans-serif;'> Centralized Services</h3>", 
         unsafe_allow_html=True
     )
     
@@ -115,6 +115,7 @@ def HomePage():
 
 
    
+
 
 
 
