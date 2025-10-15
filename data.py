@@ -36,7 +36,7 @@ def load_and_merge_data():
 
     # Load other datasets
     costs_df = pd.read_csv("costs.csv")
-    departments_df = pd.read_csv("Departments.csv")
+    departments_df = pd.read_csv("departments.csv")
 
     # Merge tasks with projects
     merged = tasks_df.merge(
@@ -64,3 +64,4 @@ def load_and_merge_data():
         )
 
     return merged
+
