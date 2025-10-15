@@ -6,25 +6,18 @@ from UI import *
 import altair as alt
 from matplotlib import pyplot as plt
 from streamlit_extras.dataframe_explorer import dataframe_explorer
-
 import streamlit.components.v1 as stc
 import time
 import pickle
 from pathlib import Path
 from tables import render_table_editor
-
 from Pro import ProPage
 from analysis import HomePage
-
 import streamlit_authenticator as stauth
 from data import load_and_merge_data
 from streamlit_option_menu import option_menu
 
 # Make Pandas display dates as YYYY-MM-DD (no time part)
-
-
-
-
 st.set_page_config(page_title="Home", page_icon="🌎", layout="wide")
 
 # Load CSS
@@ -44,7 +37,6 @@ def sideBar():
     return selected
 
 # Sidebar Date Filters
-# Sidebar Date Filters
 with st.sidebar:
     st.sidebar.image("images/kcm.jpg")
     st.title("Select Date Range")
@@ -56,13 +48,6 @@ with st.sidebar:
         label="End Date",
         value=pd.to_datetime("10-12-2025")
     )
-
-
-    
-
-   
-
-
 
 # PROGRESS PAGE FUNCTION
 def ProgressBar():
@@ -100,8 +85,7 @@ def ProgressBar():
             id_column="Department_ID"  # Adjust based on your actual ID column
         )
 
-
-    # Progress Bar
+ # Progress Bar
     st.markdown(
         """<style>.stProgress > div > div > div > div { background-image: linear-gradient(to right, #99ff99 , #FFFF00)}</style>""",
         unsafe_allow_html=True,
@@ -119,16 +103,8 @@ def ProgressBar():
             time.sleep(0.01)
             my_bar.progress(percent_complete + 1, text="Target percentage")
 
-
-
-
-
-
-
 # Call correct page
 selected = sideBar()
-
-
 
 if selected == "Database":
     ProgressBar()
@@ -141,6 +117,7 @@ elif selected == "Projects":
 
 # Bottom error message
 st.error(f"Business Metrics between [{start_date}] and [{end_date}]")
+
 
 
 
