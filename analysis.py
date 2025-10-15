@@ -14,8 +14,8 @@ def HomePage():
 
     merged_df = load_and_merge_data()
 
-   last_update = pd.to_datetime(merged_df['Last_Updated'].max())
-    st.caption(f"Last Updated: {last_update.strftime('%d %B %Y')}")
+   last_update = pd.to_datetime(merged_df['Last_Updated'].max()
+   st.caption(f"Last Updated: {last_update.strftime('%d %B %Y')}")
     
 
     date_cols = ['Est_Start', 'Est_End', 'Act_Start', 'Act_End', 
@@ -97,3 +97,4 @@ def HomePage():
 
 
    
+
