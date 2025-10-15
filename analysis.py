@@ -8,8 +8,13 @@ from visuals.gantt_chart import show_gantt_chart
 
 
 def HomePage():
-    st.header("📊 Project Tracking Dashboard", divider="rainbow")
-    st.header("📊 Centralized Services", divider="rainbow")
+    st.markdown("## 📊 Project Tracking Dashboard", unsafe_allow_html=True)
+    st.markdown("---")  # separator
+    st.markdown(
+        "<h3 style='background:#E6E6FA; padding:10px; border-radius:8px; text-align:center;'>📊 Centralized Services</h3>", 
+        unsafe_allow_html=True
+    )
+    
 
     # Load merged dataset
     merged_df = load_and_merge_data()
@@ -110,6 +115,7 @@ def HomePage():
 
 
    
+
 
 
 
